@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" class="login-register">
+<body class="login-register">
+    <div class="login">
+        <h1>Login</h1>
+        <form id="login__form" method="POST">
+            <div class="group">
+                <input id="username_log" type="text" name="username_log" placeholder="Username"/>
+                <span id="error_username_log" class="error"></span>
+            </div>
+            <div class="group">               
+                <input id="passwd_log" type="password" name="passwd_log" placeholder="Password"/>
+                <span id="error_passwd_log" class="error"></span>
+            </div>
+            <button class="btn btn-primary btn-block btn-large button" id="login">Login</button>
+            <button class="btn btn-primary btn-block btn-large button" id="recover_form_btn">Forgot your password?</button>
+        </form>
+    </div>
+
+    <div class="recover">
+        <h1>Recovery</h1>
+        <form id="recover__form" method="POST">
+            <div class="group">               
+                <input id="email_forg" type="text" name="email_forg" placeholder="Introduce tu correo"/>
+                <span id="error_email_forg" class="error"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-large button" id="recover_btn">Recover your password</button>
+        </form>
+    </div>
+</body>
+</html>
