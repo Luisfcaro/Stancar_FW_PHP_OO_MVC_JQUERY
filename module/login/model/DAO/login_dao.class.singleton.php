@@ -76,9 +76,9 @@
         public function select_recover_password($db, $email){
 			$sql = "SELECT `email` FROM `users` WHERE email = '$email';";
 
-            return $sql;
-            // $stmt = $db->ejecutar($sql);
-            // return $db->listar($stmt);
+            // return $sql;
+            $stmt = $db->ejecutar($sql);
+            return $db->listar($stmt);
         }
 
         
@@ -86,8 +86,8 @@
 
         public function update_recover_password($db, $email, $token_email){
 			$sql = "UPDATE `users` SET `token_email`= '$token_email' WHERE `email` = '$email'";
-            $stmt = $db->ejecutar($sql);
-            return "ok";
+            return  $db->ejecutar($sql);
+        
         }
 
         public function update_new_passwoord($db, $token_email, $password){

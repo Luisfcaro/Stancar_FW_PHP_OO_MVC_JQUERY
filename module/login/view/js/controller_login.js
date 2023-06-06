@@ -57,6 +57,9 @@ function recover(){
 
 }
 
+
+//////Botones///////
+
 function key_login() {
     $("#login").keypress(function(e) {
         // console.log('boton login');
@@ -96,6 +99,19 @@ function button_recover() {
     });
 }
 
+function button_restore() {
+    $('#restore_btn').on('click', function(e) {
+        console.log('boton restore');
+        e.preventDefault();
+
+    });
+}
+
+////////////////////
+
+
+/////Validates////////
+
 function validate_login() {
     var error = false;
 
@@ -123,8 +139,6 @@ function validate_login() {
     }
 }
 
-
-
 function validate_recover() {
     var error = false;
     var mail_exp = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
@@ -147,16 +161,17 @@ function validate_recover() {
     }
 }
 
-
+//////////////Recover Password//////
 
 
 
 function load_content() {
     let path = window.location.pathname.split('/');
-    console.log(path);
+    // console.log(path);
     if(path[4] === 'recover'){
-        window.location.href = friendlyURL("?module=login&op=recover_view");
+        // console.log('dile hola al recover crack con redireccion');
         localStorage.setItem("token_email", path[5]);
+        window.location.href = friendlyURL("?module=login&op=recover_view");
     }else if (path[4] === 'verify') {
         // console.log('verificandome');
         ajaxPromise(friendlyURL("?module=login&op=verify_email"), 'POST', 'JSON', {'token_email': path[5]})
@@ -173,7 +188,11 @@ function load_content() {
         $(".login-wrap").show();
         $(".forget_html").hide();
     }else if (path[3] === 'recover_view') {
-        load_form_new_password();
+        console.log('estas en el formulario de recover');
+        // load_form_new_password();
+
+
+        ///////Te quedastes AQUI//////////
     }
 }
 
@@ -188,4 +207,5 @@ $(document).ready(function() {
     button_login();
     button_recover_form();
     button_recover();
+    button_restore();
 });

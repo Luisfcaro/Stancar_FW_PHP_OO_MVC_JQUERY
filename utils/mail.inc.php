@@ -15,12 +15,12 @@
                     $email['inputMatter'] = 'Email verification';
                     $email['inputMessage'] = "<h2>Email verification.</h2><a href='http://localhost/Stancar_FW_PHP_OO_MVC_jQuery/login/view_login/verify/$email[token]'>Click here for verify your email.</a>";
                     break;
-                // case 'recover';
-                //     $email['fromEmail'] = 'secondchanceonti@gmail.com';
-                //     $email['inputEmail'] = 'secondchanceonti@gmail.com';
-                //     $email['inputMatter'] = 'Recover password';
-                //     $email['inputMessage'] = "<a href='http://localhost/Ejercicios/Framework_PHP_OO_MVC/module/login/recover/$email[token]'>Click here for recover your password.</a>";
-                //     break;
+                case 'recover';
+                    $email['fromEmail'] = 'lu.fernancar@gmail.com';
+                    $email['inputEmail'] = 'luisfcaro2004@gmail.com';
+                    $email['inputMatter'] = 'Recover password';
+                    $email['inputMessage'] = "<a href='http://localhost/Stancar_FW_PHP_OO_MVC_jQuery/login/recover_view/recover/$email[token]'>Click here for recover your password.</a>";
+                    break;
             }
             return self::send_mailgun($email);
         }

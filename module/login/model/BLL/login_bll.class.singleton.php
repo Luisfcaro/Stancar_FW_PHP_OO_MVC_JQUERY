@@ -97,22 +97,23 @@
 		public function get_recover_email_BBL($args) {
 			// return $args;
 
-			return $this -> dao -> select_recover_password($this->db, $args);
-			//$user = $this -> dao -> select_recover_password($this->db, $args);
-			// $token = common::generate_Token_secure(20);
+			// return $this -> dao -> select_recover_password($this->db, $args);
+			$user = $this -> dao -> select_recover_password($this->db, $args);
+			$token = common::generate_Token_secure(20);
 
-			// if (!empty($user)) {
-			// 	$this -> dao -> update_recover_password($this->db, $args, $token);
-            //     $message = ['type' => 'recover', 
-            //                 'token' => $token, 
-            //                 'toEmail' => $args];
-            //     $email = json_decode(mail::send_email($message), true);
-			// 	if (!empty($email)) {
-			// 		return;  
-			// 	}   
-            // }else{
-            //     return 'error';
-            // }
+			if (!empty($user)) {
+				$this -> dao -> update_recover_password($this->db, $args, $token);
+				// return 'patata';
+                $message = ['type' => 'recover', 
+                            'token' => $token, 
+                            'toEmail' => $args];
+                $email = json_decode(mail::send_email($message), true);
+				if (!empty($email)) {
+					return;  
+				}   
+            }else{
+                return 'error';
+            }
 		}
 
 
