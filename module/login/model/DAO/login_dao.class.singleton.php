@@ -61,6 +61,8 @@
 
 			$sql = "SELECT token_email FROM users WHERE token_email = '$token_email'";
 
+            // return $sql;
+
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         } 
@@ -92,6 +94,8 @@
 
         public function update_new_passwoord($db, $token_email, $password){
             $sql = "UPDATE `users` SET `password`= '$password', `token_email`= '' WHERE `token_email` = '$token_email'";
+
+            // return $sql;
             $stmt = $db->ejecutar($sql);
             return "ok";
         }

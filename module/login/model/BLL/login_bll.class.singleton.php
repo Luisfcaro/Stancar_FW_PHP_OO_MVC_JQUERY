@@ -94,6 +94,9 @@
 			}
 		}
 
+
+
+
 		public function get_recover_email_BBL($args) {
 			// return $args;
 
@@ -112,14 +115,14 @@
 					return;  
 				}   
             }else{
-                return 'error';
+                return 'error_email';
             }
 		}
 
-
-		
-
 		public function get_verify_token_BLL($args) {
+			// return 'hola verify bll';
+
+			// return $this -> dao -> select_verify_email($this->db, $args);
 
 			if($this -> dao -> select_verify_email($this->db, $args)){
 				return 'verify';
@@ -128,7 +131,11 @@
 		}
 
 		public function get_new_password_BLL($args) {
+			// return $args;
 			$hashed_pass = password_hash($args[1], PASSWORD_DEFAULT, ['cost' => 12]);
+
+			// return $this -> dao -> update_new_passwoord($this->db, $args[0], $hashed_pass);
+
 			if($this -> dao -> update_new_passwoord($this->db, $args[0], $hashed_pass)){
 				return 'done';
 			}

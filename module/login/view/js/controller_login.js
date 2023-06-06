@@ -35,17 +35,12 @@ function recover(){
         ajaxPromise(friendlyURL('?module=login&op=send_recover_email'), 'POST', 'JSON', data)
             .then(function(result) {
                 console.log(result);
-                // if (result == "error_user") {
-                //     document.getElementById('error_username_log').innerHTML = "El usario no existe,asegurase de que lo has escrito correctamente"
-                // } else if (result == "error_passwd") {
-                //     document.getElementById('error_passwd_log').innerHTML = "La contraseña es incorrecta"
-                // } else if (result == "activate error") {
-                //     toastr.error("Not verified");
-                // } else {
-                //     localStorage.setItem("heidi", result);
-                //     toastr.success("Loged succesfully");
-                //     setTimeout(' window.location.href = friendlyURL("?module=shop"); ', 1000);
-                // }
+                if (result == "error_email") {
+                    toastr.error("No existe un usuario con ese correo electronico");
+                } else {
+                    toastr.success("Email enviado correctamente");
+                    setTimeout(' window.location.href = friendlyURL("?module=shop"); ', 1000);
+                }
             }).catch(function(textStatus) {
                 if (console && console.log) {
                     console.log("La solicitud ha fallado: " + textStatus);
@@ -54,6 +49,34 @@ function recover(){
     }
 
 
+
+}
+
+
+function restore(){
+    
+    // console.log('restoreeeee');
+
+    if (validate_restore() != 0) {
+        var data = $('#passwd1_recover').val();
+        var token_email = localStorage.getItem('token_email');
+
+        ajaxPromise(friendlyURL('?module=login&op=new_password'), 'POST', 'JSON', {'token_email' : token_email, 'password': data})
+            .then(function(result) {
+                console.log(result);
+                if (result == "done") {
+                    toastr.success("La contraseña ha sido modificada correctamente");
+                    setTimeout(' window.location.href = friendlyURL("?module=login&op=view_login"); ', 1000);
+                } else {
+                    toastr.error("Ha habido un problema");
+                    setTimeout(' window.location.href = friendlyURL("?module=shop"); ', 1000);
+                }
+            }).catch(function(textStatus) {
+                if (console && console.log) {
+                    console.log("La solicitud ha fallado: " + textStatus);
+                }
+            });
+    }
 
 }
 
@@ -101,9 +124,9 @@ function button_recover() {
 
 function button_restore() {
     $('#restore_btn').on('click', function(e) {
-        console.log('boton restore');
+        // console.log('boton restore');
         e.preventDefault();
-
+        restore();
     });
 }
 
@@ -161,7 +184,74 @@ function validate_recover() {
     }
 }
 
+function validate_restore() {
+    var error = false;
+    var pssswd_exp = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/;
+
+
+    if (document.getElementById('passwd1_recover').value.length === 0) {
+        document.getElementById('error_passwd1_recover').innerHTML = "Tienes que escribir una contraseña";
+        error = true;
+    } else {
+        if (!pssswd_exp.test(document.getElementById('passwd1_recover').value)) {
+            document.getElementById('error_passwd1_recover').innerHTML = "El formato de contraseña es invalido";
+            error = true;
+        } else {
+            document.getElementById('error_passwd1_recover').innerHTML = "";
+        }
+    }
+
+    if (document.getElementById('passwd2_recover').value.length === 0) {
+        document.getElementById('error_passwd2_recover').innerHTML = "Tienes que escribir una contraseña";
+        error = true;
+    } else {
+        if (!pssswd_exp.test(document.getElementById('passwd2_recover').value)) {
+            document.getElementById('error_passwd2_recover').innerHTML = "El formato contraseña es invalido";
+            error = true;
+        } else {
+            document.getElementById('error_passwd2_recover').innerHTML = "";
+        }
+    }
+
+    if (document.getElementById('passwd2_recover').value != document.getElementById('passwd1_recover').value) {
+        // console.log('las contraseñas no son iguales');
+        document.getElementById('error_passwd_equal_recover').innerHTML = "Las contraseñas deben de ser iguales";
+        error = true;
+    } else {
+        document.getElementById('error_passwd_equal_recover').innerHTML = "";
+    }
+
+    if (error == true) {
+        return 0;
+    }
+}
+
+
+
+
 //////////////Recover Password//////
+
+
+function load_form_new_password(){
+    var token_email = localStorage.getItem('token_email');
+    // console.log(token_email);
+
+    ajaxPromise(friendlyURL('?module=login&op=verify_token'), 'POST', 'JSON', {'token_email' : token_email})
+    .then(function(result) {
+        // console.log(result);
+        if (result == "verify") {
+            console.log('verified');
+        } else {
+            console.log('fail');
+        }
+    }).catch(function(textStatus) {
+        if (console && console.log) {
+            console.log("La solicitud ha fallado: " + textStatus);
+        }
+    });
+}
+
+////////////////////////////////////
 
 
 
@@ -189,7 +279,7 @@ function load_content() {
         $(".forget_html").hide();
     }else if (path[3] === 'recover_view') {
         console.log('estas en el formulario de recover');
-        // load_form_new_password();
+        load_form_new_password();
 
 
         ///////Te quedastes AQUI//////////

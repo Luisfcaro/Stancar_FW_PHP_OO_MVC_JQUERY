@@ -45,6 +45,8 @@ class login_model {
     }
 
     public function get_new_password($args) {
+
+        // return $args;
         return $this -> bll -> get_new_password_BLL($args);
     }
 
