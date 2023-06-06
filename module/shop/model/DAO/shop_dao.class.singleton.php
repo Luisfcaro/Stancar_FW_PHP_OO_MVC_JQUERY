@@ -265,31 +265,35 @@
 
         public function select_load_likes($db, $username){
 
-            $sql = "SELECT id_car FROM likes WHERE username='$username'";
+            $sql = "SELECT l.id_car FROM likes l WHERE l.id_user = (SELECT u.id_user FROM users u WHERE u.username = '$username')";
 
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
 
-        public function select_likes($db, $id, $username){
+        public function select_likes($db, $num_bas, $username){
 
-            $sql = "SELECT username, id_car FROM likes WHERE username='$username' AND id_car='$id'";
+            // return 'select likes';
+
+    		$sql = "SELECT l.id_car FROM likes l
+				WHERE l.id_user = (SELECT u.id_user FROM users u WHERE u.username = '$username')
+				AND l.id_car = '$num_bas'";
 
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
 
-        public function insert_likes($db, $id, $username){
+        public function insert_likes($db, $num_bas, $username){
 
-            $sql = "INSERT INTO likes (username, id_car) VALUES ('$username','$id')";
+            $sql = "INSERT INTO likes (id_user, id_car) VALUES ((SELECT  u.id_user FROM users u WHERE u.username= '$username') ,'$num_bas');";
 
             $stmt = $db->ejecutar($sql);
             return "like";
         }
 
-        function delete_likes($db, $id, $username){
+        function delete_likes($db, $num_bas, $username){
 
-            $sql = "DELETE FROM likes WHERE username='$username' AND id_car='$id'";
+            $sql = "DELETE FROM likes WHERE id_car='$num_bas' AND id_user=(SELECT  u.id_user FROM users u WHERE u.username= '$username')";
 
             $stmt = $db->ejecutar($sql);
             return "unlike";

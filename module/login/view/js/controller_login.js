@@ -67,6 +67,7 @@ function restore(){
                 if (result == "done") {
                     toastr.success("La contraseña ha sido modificada correctamente");
                     setTimeout(' window.location.href = friendlyURL("?module=login&op=view_login"); ', 1000);
+                    localStorage.removeItem('token_email');
                 } else {
                     toastr.error("Ha habido un problema");
                     setTimeout(' window.location.href = friendlyURL("?module=shop"); ', 1000);

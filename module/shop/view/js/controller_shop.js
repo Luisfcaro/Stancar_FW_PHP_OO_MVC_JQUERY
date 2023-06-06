@@ -55,7 +55,7 @@ function ajaxForSearch(url, filter, total_prod = 0, items_page = 3) {
                         "</div>"
                     )
             }
-            // load_likes_user();
+            load_likes_user();
             mapBox_all(data);
         }
 
@@ -197,7 +197,7 @@ function loadDetails(id_car) {
                 "</div>" +
                 "</div>"
             )
-                // load_likes_user();
+                load_likes_user();
                 more_cars_related(data[0][0].cod_categoria);
 
             new Glider(document.querySelector('.date_img'), {             
@@ -545,9 +545,9 @@ function click_like(id_car, lugar) {
     var token = localStorage.getItem('heidi');
     // console.log(token);
     if (token) {
-        ajaxPromise("module/shop/controller/controller_shop.php?op=control_likes", 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
+        ajaxPromise(friendlyURL('?module=shop&op=control_likes'), 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
             .then(function(data) {
-                console.log(data);
+                // console.log(data);
                 if(data == 'like'){
                     $("#" + id_car + ".fa").addClass('fa-heart');
                     $("#" + id_car + ".fa").removeClass('fa-heart-o');
@@ -570,15 +570,17 @@ function click_like(id_car, lugar) {
         localStorage.setItem('id_car', id_car);
 
         toastr.warning("Debes de iniciar session");
-        setTimeout("location.href = 'index.php?page=controller_login&op=login_view';", 1000);
+        setTimeout(' window.location.href = friendlyURL("?module=login&op=view_login"); ', 1000);
     }
 }
 
 function load_likes_user() {
     var token = localStorage.getItem('heidi');
+    // console.log('cargando los likes del usuario');
     if (token) {
-        ajaxPromise("module/shop/controller/controller_shop.php?op=load_likes_user", 'POST', 'JSON', { 'token': token })
+        ajaxPromise(friendlyURL('?module=shop&op=load_likes'), 'POST', 'JSON', { 'token': token })
             .then(function(data) {
+                // console.log(data);
                 for (row in data) {
                     $("#" + data[row].id_car + ".fa").addClass('fa-heart');
                     $("#" + data[row].id_car + ".fa").removeClass('fa-heart-o');
@@ -595,19 +597,23 @@ function redirect_login_like() {
     var token = localStorage.getItem('heidi');
     var redirect = localStorage.getItem('redirect_like').split(",");
 
-        ajaxPromise("module/shop/controller/controller_shop.php?op=control_likes", 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
-            .then(function(data) {
-                // console.log(data);
-                if(data == 'like'){
-                    $("#" + id_car + ".fa").addClass('fa-heart');
-                    $("#" + id_car + ".fa").removeClass('fa-heart-o');
-                }else{
-                    $("#" + id_car + ".fa").addClass('fa-heart-o');
-                    $("#" + id_car + ".fa").removeClass('fa-heart');
-                }
-            }).catch(function() {
-                window.location.href = "index.php?module=controller_exceptions&op=503&type=503&lugar=Function click_like SHOP";
-            });
+    // console.log('redirect like funcion');
+
+    ajaxPromise(friendlyURL('?module=shop&op=control_likes'), 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
+    .then(function(data) {
+        // console.log(data);
+        if(data == 'like'){
+            $("#" + id_car + ".fa").addClass('fa-heart');
+            $("#" + id_car + ".fa").removeClass('fa-heart-o');
+        }else{
+            $("#" + id_car + ".fa").addClass('fa-heart-o');
+            $("#" + id_car + ".fa").removeClass('fa-heart');
+        }
+        
+    }).catch(function() {
+        window.location.href = "index.php?module=controller_exceptions&op=503&type=503&lugar=Function click_like SHOP";
+        // console.log('fallo');
+    });
 
     if (redirect[1] == "details") {
         loadDetails(redirect[0]);

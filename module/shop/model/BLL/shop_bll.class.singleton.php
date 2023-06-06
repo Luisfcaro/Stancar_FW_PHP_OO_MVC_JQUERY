@@ -57,23 +57,36 @@
 			return $this -> dao -> select_cars($this->db, $args[0], $args[1], $args[2], $args[3], $args[4]);
 		}
 
+
+		///////Likes//////
+
 		public function get_load_likes_BLL($args) {
 
 			$token = explode('"', $args);
-			$decode = middleware::decode_username($token[1]);
-			return $this -> dao -> select_load_likes($this->db, $decode);
+			$decode = jwt_process::decode_token($token[0]);
+			// return $decode;
+			return $this -> dao -> select_load_likes($this->db, $decode['username']);
 		}
 
 		public function get_control_likes_BLL($args) {
 
-			$token = explode('"', $args[1]);
-			$decode = middleware::decode_username($token[1]);
+			// return $args;
 
-			if ($this -> dao -> select_likes($this->db, $args[0], $decode)) {
-				return $this -> dao -> delete_likes($this->db, $args[0], $decode);
+			$token = explode('"', $args[1]);
+			$decode = jwt_process::decode_token($token[0]);
+
+
+
+			if ($this -> dao -> select_likes($this->db, $args[0], $decode['username'])) {
+				// return 'dislike';
+				return $this -> dao -> delete_likes($this->db, $args[0], $decode['username']);
 			}
-			return $this -> dao -> insert_likes($this->db, $args[0], $decode);
+			// return 'like';
+			return $this -> dao -> insert_likes($this->db, $args[0], $decode['username']);
 		}
+
+		/////////////////
+
 
 		public function get_count_related_BLL($args) {
 			// return 'hola related bll';

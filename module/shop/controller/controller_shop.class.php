@@ -46,14 +46,20 @@
             // echo json_encode(common::load_model('shop_model', 'get_cars', [$_POST['category'], $_POST['type'], $_POST['id'], $_POST['loaded'], $_POST['items']]));
         }
 
+
+        ////////Likes///////
+
         function load_likes() {
             // echo json_encode($_POST['token']);
-            // echo json_encode(common::load_model('shop_model', 'get_load_likes', $_POST['token']));
+            echo json_encode(common::load_model('shop_model', 'get_load_likes', $_POST['token']));
         }
 
         function control_likes() {
-            // echo json_encode(common::load_model('shop_model', 'get_control_likes', [$_POST['id'], $_POST['token']]));
+            // echo json_encode($_POST['num_bas']);
+            echo json_encode(common::load_model('shop_model', 'get_control_likes', [$_POST['num_bas'], $_POST['token']]));
         }
+
+        ////////////////////
 
 
         function count_related() {
