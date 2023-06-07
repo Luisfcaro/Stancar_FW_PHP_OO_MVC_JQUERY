@@ -33,4 +33,8 @@
         <uri>login</uri>
         <uri>register</uri>
     </module>
+    <module>
+        <name>cart</name>
+        <uri>cart</uri>
+    </module>
 </modules>

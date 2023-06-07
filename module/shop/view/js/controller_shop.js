@@ -629,10 +629,10 @@ function redirect_login_like() {
 }
 
 function add_cart(id_car, lugar){
-    console.log('patata');
+    // console.log('patata');
     var token = localStorage.getItem('heidi');
     if(token){
-        ajaxPromise("module/cart/controller/controller_cart.php?op=insert_cart", 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
+        ajaxPromise(friendlyURL('?module=cart&op=insert_cart'), 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
         .then(function(data) { 
             console.log(data);
             //toastr
@@ -641,15 +641,14 @@ function add_cart(id_car, lugar){
         });  
     }else{
 
-        // const redirect = [];
-        // redirect.push(id_car, lugar);
+        const redirect = [];
+        redirect.push(id_car, lugar);
 
-        // localStorage.setItem('redirect_like', redirect);
-        // localStorage.setItem('id_car', id_car);
+        localStorage.setItem('redirect_like', redirect);
+        localStorage.setItem('id_car', id_car);
 
         toastr.warning("Debes de iniciar session");
-        // setTimeout("location.href = 'index.php?page=controller_login&op=login_view';", 1000);
-        console.log('fallo al añadir');
+        setTimeout(' window.location.href = friendlyURL("?module=login&op=view_login"); ', 1000);
     }
 }
 

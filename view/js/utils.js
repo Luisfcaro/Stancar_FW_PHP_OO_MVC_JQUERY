@@ -37,9 +37,9 @@ function load_menu() {
         '<li class="nav-item"><a href="'+friendlyURL("?module=home") + '" class="nav-link">Home</a></li>' +
         '<li class="nav-item"><a href="'+friendlyURL("?module=shop") + '" class="nav-link">Shop</a></li>' +
         '<li class="nav-item"><a href="'+friendlyURL("?module=contact") + '" class="nav-link">Contactanos</a></li>' +
-        '<li class="nav-item"><a href="'+friendlyURL("?module=login&op=view_login") + '" class="nav-link">Login</a></li>' +
-        '<li class="nav-item"><a href="'+friendlyURL("?module=login&op=view_register") + '" class="nav-link">Register</a></li>' +
-        '<li class="nav-item"><a href="'+friendlyURL("?module=login&op=view_register") + '" class="nav-link"> <i class="gg-shopping-cart nav-link"></i> </a></li>'
+        '<li class="nav-item login_section"><a href="'+friendlyURL("?module=login&op=view_login") + '" class="nav-link">Login</a></li>' +
+        '<li class="nav-item register_section"><a href="'+friendlyURL("?module=login&op=view_register") + '" class="nav-link">Register</a></li>' +
+        '<li class="nav-item carrito"><a href="'+friendlyURL("?module=cart") + '" class="nav-link"> <i class="gg-shopping-cart nav-link"></i> </a></li>'
      );
     // console.log('soy una patata util');
     var token = localStorage.getItem('heidi');
