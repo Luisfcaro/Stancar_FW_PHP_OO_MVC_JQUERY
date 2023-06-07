@@ -25,7 +25,6 @@
         }
 
         function update_visitas($db, $id){
-            // return 'hola select details';
 
             $sql = "UPDATE car 
             SET car.Visitas = car.Visitas + 1 
@@ -35,7 +34,6 @@
         }
 
         function select_details($db, $id){
-            // return 'hola select details';
 
             $sql = "SELECT car.*, cat.nombre_categoria, mar.nombre_marca, mot.nombre_motor
             FROM car INNER JOIN categorias cat INNER JOIN marca mar INNER JOIN motor mot
@@ -47,7 +45,6 @@
         }
 
         public function select_details_images($db, $id){
-            // return 'hola imagenes details';
 
             $details = self::select_details($db, $id);
             self::update_visitas($db, $id);
@@ -71,12 +68,10 @@
             $rdo[1][] = $array;
 
             return $rdo;
-            // return $db->listar($array);
-            // return $db->listar($rdo);
+
         }
 
         public function select_filters($db, $filter, $total_prod, $items_page) {
-            // return $filter;
 
             $sql = "SELECT car.*, cat.nombre_categoria, mar.nombre_marca, mot.nombre_motor
             FROM car INNER JOIN categorias cat INNER JOIN marca mar INNER JOIN motor mot
@@ -101,46 +96,8 @@
 
                 $sql.= "LIMIT " . $total_prod ."," . $items_page;
                 
-                // return $sql;
                 $stmt = $db->ejecutar($sql);
                 return $db->listar($stmt);
-        }
-
-        function sql_filter($filters){
-            $continue = "";
-            $cont = 0;
-            $cont1 = 0;
-            $cont2 = 0;
-            $select = ' WHERE ';
-            foreach ($filters as $key => $row) {
-                foreach ( $row as $key => $row_inner) {
-                    if ($cont == 0) {
-                        foreach ($row_inner as $value) {
-                            if ($cont1 == 0) {
-                                $continue = $key . ' IN ("'. $value . '"';
-                            }else {
-                                $continue = $continue  . ', "' . $value . '"';
-                            }
-                            $cont1++;
-                        }
-                        $continue = $continue . ')';
-                    }else {
-                        foreach ($row_inner as $value)  {
-                            if ($cont2 == 0) {
-                                $continue = ' AND ' . $key . ' IN ("' . $value . '"';
-                            }else {
-                                $continue = $continue . ', "' . $value . '"';
-                            }
-                            $cont2++;
-                        }
-                        $continue = $continue . ')';
-                    }
-                }
-                $cont++;
-                $cont2 = 0;
-                $select = $select . $continue;
-            }
-            return $select;
         }
 
         public function filters($db, $filter, $total_prod, $items_page) {
@@ -172,8 +129,6 @@
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
 
-
-            // return 'dao filters search';
         }
 
         public function maps_details($db, $id){
@@ -266,15 +221,12 @@
         public function select_load_likes($db, $username){
 
             $sql = "SELECT l.id_car FROM likes l WHERE l.id_user = (SELECT u.id_user FROM users u WHERE u.username = '$username')";
-            // return $sql;
 
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
 
         public function select_likes($db, $num_bas, $username){
-
-            // return 'select likes';
 
     		$sql = "SELECT l.id_car FROM likes l
 				WHERE l.id_user = (SELECT u.id_user FROM users u WHERE u.username = '$username')
@@ -299,7 +251,6 @@
             $stmt = $db->ejecutar($sql);
             return "unlike";
         }
-
 
         public function select_count_related($db, $category_car){
 

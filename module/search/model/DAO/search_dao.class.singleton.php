@@ -22,7 +22,6 @@
 
         function select_car_categoria($db){
 
-
             $sql = "SELECT DISTINCT * FROM categorias";
 
 			$stmt = $db->ejecutar($sql);
@@ -30,21 +29,16 @@
         }
 
         function select_car_categoria_brand($db, $marca){
-            
-            // return $marca[0];
 
             $sql = "SELECT ca.*
             FROM car, categorias ca
             WHERE ca.cod_categoria = car.cod_categoria AND car.cod_marca = '$marca[0]'";
-
-            // return $sql;
 			
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
 
         function select_only_categoria_auto($db, $complete, $categoria){
-            // return 'hola dao only cat';
 
             $sql="SELECT DISTINCT city FROM car WHERE car.cod_categoria = '$categoria' AND car.city LIKE '$complete%'";
 
@@ -53,7 +47,6 @@
         }
 
         function select_marca_categoria_auto($db, $marca, $complete, $categoria){
-            // return 'Dao marca categoria';
 
             $sql="SELECT DISTINCT city FROM car WHERE car.cod_marca = '$marca' AND car.cod_categoria = '$categoria' AND car.city LIKE '$complete%'";
 

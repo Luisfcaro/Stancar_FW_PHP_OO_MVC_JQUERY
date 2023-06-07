@@ -1,7 +1,6 @@
 function carousel_Brands() {
   ajaxPromise(friendlyURL("?module=home&op=carrusel"),'POST', 'JSON')
   .then(function(data) {
-    //   console.log(data);
           for (row in data) {
               $('<div></div>').attr('class', "carousel__elements").attr('id', data[row].cod_marca).appendTo(".carrousel__list").html(
                   "<img class='carousel__img' id='' src='" + data[row].descripcion + "' alt='' >"
@@ -30,7 +29,6 @@ function carousel_Brands() {
 function loadCategories() {
   ajaxPromise(friendlyURL("?module=home&op=category"), 'POST', 'JSON')
   .then(function(data) {
-      // console.log(data);
       for (row in data) {
           $('<div></div>').attr('class', "div_cate").attr({ 'id': data[row].cod_categoria }).appendTo('#container_car')
               .html(
@@ -55,7 +53,6 @@ function loadCategories() {
 function loadMostViewed() {
   ajaxPromise(friendlyURL("?module=home&op=viewed"), 'POST', 'JSON')
   .then(function(data) {
-      // console.log(data);
       for (row in data) {
           $('<div></div>').attr('class', "div_views").attr({ 'id': data[row].numero_bastidor }).appendTo('#container_views')
               .html(
@@ -80,7 +77,6 @@ function loadMostViewed() {
 function loadCatTypes() {
   ajaxPromise(friendlyURL("?module=home&op=type"),'POST', 'JSON')
   .then(function(data) {
-    //   console.log(data);
       for (row in data) {
           $('<div></div>').attr('class', "div_motor").attr({ 'id': data[row].cod_motor }).appendTo('#container_type')
               .html(
@@ -118,7 +114,6 @@ function clicks(){
         window.location.href = friendlyURL('?module=shop');
       }, 200); 
 
-      // console.log('marcas'); 
   }); 
 
   $(document).on("click",'.div_cate', function (){
@@ -129,7 +124,6 @@ function clicks(){
         window.location.href = friendlyURL('?module=shop');
       }, 200); 
 
-      // console.log('categorias');
   });
 
   $(document).on("click",'.div_motor', function (){
@@ -140,7 +134,6 @@ function clicks(){
         window.location.href = friendlyURL('?module=shop');
       }, 200);  
 
-      // console.log('tipos de motor');
   });
 
   $(document).on("click",'.div_views', function (){
@@ -151,7 +144,6 @@ function clicks(){
           window.location.href = friendlyURL('?module=shop');
         }, 200); 
 
-      //   console.log('Visitados');
     });
 } 
 
@@ -194,7 +186,7 @@ function load_more_Books_car() {
                       );
               }
           }).catch(function() {
-              // window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=News cars HOME";
+              window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=News cars HOME";
           });
   })
 }
@@ -231,7 +223,7 @@ function get_Books_car() {
                   );
           }
       }).catch(function() {
-          // window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=News cars HOME";
+          window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=News cars HOME";
       });
   load_more_Books_car();
 }
@@ -241,11 +233,11 @@ function get_Books_car() {
 
 $(document).ready(function() {
   // console.log('hola');
-  // var books = [];
+  var books = [];
   loadMostViewed();
   carousel_Brands();
   loadCategories();
   loadCatTypes();
-  // get_Books_car();
+  get_Books_car();
   clicks();
 });

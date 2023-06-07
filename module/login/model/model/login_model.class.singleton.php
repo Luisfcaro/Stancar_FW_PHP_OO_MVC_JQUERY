@@ -15,7 +15,6 @@ class login_model {
     }
 
     public function get_register($args) {
-        
         return $this -> bll -> get_register_BLL($args);
     }
 
@@ -28,15 +27,10 @@ class login_model {
     }
     
     public function get_verify_email($args) {
-        // return 'hola';
         return $this -> bll -> get_verify_email_BLL($args);
     }
 
-
-    //////Recover//////
-
     public function get_recover_email($args) {
-        // return $args;
         return $this -> bll -> get_recover_email_BBL($args);
     }
 
@@ -45,17 +39,12 @@ class login_model {
     }
 
     public function get_new_password($args) {
-
-        // return $args;
         return $this -> bll -> get_new_password_BLL($args);
     }
-
-    //////Activity///////
 
     public function get_data_user($args) {
         return $this -> bll -> get_data_user_BLL($args);
     }
-
 
     public function get_activity() {
         return $this -> bll -> get_activity_BLL();
@@ -74,7 +63,6 @@ class login_model {
     }
 
     public function get_logout() {
-        // return 'estoy deslogueado';
         return $this -> bll -> get_logout_BLL();
     }
 }

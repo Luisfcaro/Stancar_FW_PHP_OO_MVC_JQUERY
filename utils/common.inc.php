@@ -8,11 +8,9 @@
         }
         
         public static function load_view($topPage, $view) {
-            // echo('hola');
             $topPage = VIEW_PATH_INC . $topPage;
             if ((file_exists($topPage)) && (file_exists($view))) {
                 require_once ($topPage);
-                // require_once ('C:/xampp/htdocs/Ejercicios/Framework_PHP_OO_MVC/view/inc/header.html');
                 require_once (VIEW_PATH_INC . 'menu.html');
                 require_once ($view);
                 require_once (VIEW_PATH_INC . 'footer.html');
@@ -22,12 +20,8 @@
         }
         
         public static function load_model($model, $function = null, $args = null) {
-            // echo json_encode('hola model');
-            // exit;
             $dir = explode('_', $model);
             $path = constant('MODEL_' . strtoupper($dir[0])) .  $model . '.class.singleton.php';
-            // $path = 'C:/xampp/htdocs/STANCAR_FW_PHP_OO_MVC_JQUERY/module/home/model/model/home_model.class.singleton.php';
-            // die('<script>console.log('.json_encode( 'hey' ) .');</script>');
             if (file_exists($path)) {
                 require_once ($path);
                 if (method_exists($model, $function)) {

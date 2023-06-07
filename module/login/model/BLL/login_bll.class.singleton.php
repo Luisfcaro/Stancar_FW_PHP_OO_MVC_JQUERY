@@ -19,9 +19,6 @@
 		}
 
 		public function get_register_BLL($args) {
-			// return $args;
-
-
 
 			$hashed_pass = password_hash($args[1], PASSWORD_DEFAULT, ['cost' => 12]);
 			$hashavatar = md5(strtolower(trim($args[2]))); 
@@ -29,17 +26,14 @@
 			$token_email = common::generate_Token_secure(20);
 
 		
-
-
 			if (!empty($this -> dao -> select_comprobar_reg($this->db, $args[0], $args[2]))) {
-				return 'error';
+				return 'error_email';
             } else {
-				// return 'el usuario es valido';
 				$this -> dao -> insert_user($this->db, $args[0], $hashed_pass, $args[2], $avatar, $token_email);
 				$message = [ 'type' => 'validate', 
 							 'token' => $token_email, 
 							 'toEmail' =>  'lu.fernancar@gmail.com'
-							//  'toEmail' =>  $args[0]
+							//  'toEmail' =>  $args[0] (Pasariamos la direccion de correo correspondiente)
 							];
 				$email = json_decode(mail::send_email($message), true);
 				if (!empty($email)) {
@@ -84,7 +78,6 @@
 		}
 
 		public function get_verify_email_BLL($args) {
-			// return 'hola bll verify';
 
 			if(!empty($this -> dao -> select_verify_email($this->db, $args))){
 				$this -> dao -> update_verify_email($this->db, $args);
@@ -98,15 +91,12 @@
 
 
 		public function get_recover_email_BBL($args) {
-			// return $args;
 
-			// return $this -> dao -> select_recover_password($this->db, $args);
 			$user = $this -> dao -> select_recover_password($this->db, $args);
 			$token = common::generate_Token_secure(20);
 
 			if (!empty($user)) {
 				$this -> dao -> update_recover_password($this->db, $args, $token);
-				// return 'patata';
                 $message = ['type' => 'recover', 
                             'token' => $token, 
                             'toEmail' => $args];
@@ -120,9 +110,6 @@
 		}
 
 		public function get_verify_token_BLL($args) {
-			// return 'hola verify bll';
-
-			// return $this -> dao -> select_verify_email($this->db, $args);
 
 			if($this -> dao -> select_verify_email($this->db, $args)){
 				return 'verify';
@@ -131,10 +118,8 @@
 		}
 
 		public function get_new_password_BLL($args) {
-			// return $args;
-			$hashed_pass = password_hash($args[1], PASSWORD_DEFAULT, ['cost' => 12]);
 
-			// return $this -> dao -> update_new_passwoord($this->db, $args[0], $hashed_pass);
+			$hashed_pass = password_hash($args[1], PASSWORD_DEFAULT, ['cost' => 12]);
 
 			if($this -> dao -> update_new_passwoord($this->db, $args[0], $hashed_pass)){
 				return 'done';
@@ -146,7 +131,6 @@
 
 
 		public function get_data_user_BLL($args) {
-			// return $args;
 
 			$token = explode('"', $args);
 			$decode = jwt_process::decode_token($token[0]);

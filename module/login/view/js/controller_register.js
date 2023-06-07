@@ -1,11 +1,8 @@
 function register() {
-    // console.log('registerrrrrrr');
     if (validate_register() != 0) {
         var data = $('#register__form').serialize();
-            // console.log(data);
         ajaxPromise(friendlyURL('?module=login&op=register'), 'POST', 'JSON', data)
             .then(function(result) {
-                // console.log(result);
                 if (result == "error_email") {
                     document.getElementById('error_email_reg').innerHTML = "El email ya esta en uso, asegurate de no tener ya una cuenta"
                 } else if (result == "error_user") {
@@ -24,7 +21,6 @@ function register() {
 
 function key_register() {
     $("#register").keypress(function(e) {
-        // console.log('boton register');
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13) {
             e.preventDefault();
@@ -118,7 +114,6 @@ function validate_register() {
 }
 
 $(document).ready(function() {
-    // console.log('patata register');
     $('#header').hide();
     $('#footer').hide();
     $('#menu').hide();

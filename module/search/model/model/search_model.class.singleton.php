@@ -15,7 +15,6 @@
         }
 
         public function get_car_marca() {
-            // return 'get car marca';
             return $this -> bll -> get_car_marca_BLL();
         }
 

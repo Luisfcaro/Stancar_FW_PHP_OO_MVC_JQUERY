@@ -21,12 +21,10 @@
 		}
 
         public function get_details_carousel_BLL($args) {
-			// return 'hola carousel bll';
 			return $this -> dao -> select_details_images($this->db, $args);
 		}
 
 		public function get_filters_BLL($args) {
-			// return $args;
 			return $this -> dao -> select_filters($this->db, $args[0], $args[1], $args[2]);
 		}
 
@@ -39,17 +37,14 @@
 		}
 		
 		public function get_count_BLL() {
-			// return 'count bll';
 			return $this -> dao -> select_count($this->db);
 		}
 
 		public function get_count_filters_BLL($args) {
-			// return $args;
 			return $this -> dao -> select_count_filters($this->db, $args);
 		}
 
 		public function get_count_filters_search_BLL($args) {
-			// return 'count search bll';
 			return $this -> dao -> select_count_filters_search($this->db, $args);
 		}
 
@@ -57,45 +52,28 @@
 			return $this -> dao -> select_cars($this->db, $args[0], $args[1], $args[2], $args[3], $args[4]);
 		}
 
-
-		///////Likes//////
-
 		public function get_load_likes_BLL($args) {
-			// return 'hola likes bll';
-
 			$token = explode('"', $args);
 			$decode = jwt_process::decode_token($token[0]);
-			// return $decode;
+
 			return $this -> dao -> select_load_likes($this->db, $decode['username']);
 		}
 
 		public function get_control_likes_BLL($args) {
-
-			// return $args;
-
 			$token = explode('"', $args[1]);
 			$decode = jwt_process::decode_token($token[0]);
 
-
-
 			if ($this -> dao -> select_likes($this->db, $args[0], $decode['username'])) {
-				// return 'dislike';
 				return $this -> dao -> delete_likes($this->db, $args[0], $decode['username']);
 			}
-			// return 'like';
 			return $this -> dao -> insert_likes($this->db, $args[0], $decode['username']);
 		}
 
-		/////////////////
-
-
 		public function get_count_related_BLL($args) {
-			// return 'hola related bll';
 			return $this -> dao -> select_count_related($this->db, $args);
 		}
 
 		public function get_cars_related_BLL($args) {
-			// return 'hola related cars bll';
 			return $this -> dao -> select_cars_related($this->db, $args[0], $args[1], $args[2]);
 		}
 	}

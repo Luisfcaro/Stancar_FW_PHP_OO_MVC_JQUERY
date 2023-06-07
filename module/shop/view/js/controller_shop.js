@@ -71,9 +71,6 @@ function loadCars(total_prod = 0, items_page = 3) {
     var visita = JSON.parse(localStorage.getItem('Id_visitas'));
     var redirect_like = localStorage.getItem('redirect_like');
     var redirect_cart = localStorage.getItem('redirect_cart');
-    // localStorage.removeItem('Id_Visitas');
-   
-    // console.log(filtro);
 
     if (filtro) {
         if (filtro[0][0] == 'default'){
@@ -84,20 +81,15 @@ function loadCars(total_prod = 0, items_page = 3) {
             ajaxForSearch("?module=shop&op=filters", filtro, total_prod, items_page);
         }
     }else if (filtro_search) {
-        // console.log('filtros js search');
         ajaxForSearch("?module=shop&op=filters_search", filtro_search, total_prod, items_page);
     }else if (visita) {
-        // console.log('visitas');
         loadDetails(visita[0]);
     }else if (redirect_like) {
         console.log('redirect');
         redirect_login_like();
     }else if (redirect_cart) {
-        // console.log('redirect');
         redirect_login_cart();
     }else{
-        
-        // console.log('all');
         ajaxForSearch("?module=shop&op=list", undefined, total_prod, items_page);
     }
 }
@@ -106,7 +98,6 @@ function clicks() {
     
     $(document).on("click", ".more_info_list", function() {
          var id_car = this.getAttribute('id');
-        //  console.log(id_car);
         loadDetails(id_car);
     });
 
@@ -117,7 +108,6 @@ function clicks() {
 
 
    $(document).on("click", ".pag", function () {
-    // console.log('patata');
     var num = this.getAttribute('id');
     total_prod = 3 * (num - 1);
     loadCars(total_prod, 3);
@@ -126,13 +116,11 @@ function clicks() {
 
   $(document).on("click", ".list_heart", function() {
     var id_car = this.getAttribute('id');
-    // console.log(id_car);
     click_like(id_car, "list_all");
 });
 
 $(document).on("click", ".details_heart", function() {
     var id_car = this.getAttribute('id');
-    // console.log('heart details');
     click_like(id_car, "details");
 });
 
@@ -147,8 +135,6 @@ $(document).on("click", ".add_cart", function() {
 function loadDetails(id_car) {
     ajaxPromise(friendlyURL("?module=shop&op=details_carousel"), 'POST', 'JSON', { 'id_car' : id_car })
     .then(function(data) {
-        // console.log(data);
-        // console.log(data);
         $('.pagination').hide();
         $('.glider-prev').show();
         $('.glider-next').show();
@@ -265,7 +251,6 @@ function print_filters() {
 }
 
 function filter_button() {
-    //Filtro type
    
         $('.filter_type').change(function () {
             localStorage.setItem('filter_type', this.value);
@@ -274,18 +259,12 @@ function filter_button() {
             $('.filter_type').val(localStorage.getItem('filter_type'));
         }
 
-
-    //Filtro category
-
         $('.filter_category').change(function () {
             localStorage.setItem('filter_category', this.value);
         });
         if (localStorage.getItem('filter_category')) {
             $('.filter_category').val(localStorage.getItem('filter_category'));
         }
-
-
-    //Filtro marca
  
         $('.filter_brand').change(function () {
             localStorage.setItem('filter_brand', this.value);
@@ -294,18 +273,12 @@ function filter_button() {
             $('.filter_brand').val(localStorage.getItem('filter_brand'));
         }
 
-
-    //Filtro de color
-
         $('.filter_color').change(function () {
             localStorage.setItem('filter_color', this.value);
         });
         if (localStorage.getItem('filter_color')) {
             $('.filter_color').val(localStorage.getItem('filter_color'));
         }
-
-
-     //Filtro de orden
 
         $('.orden').change(function () {
             localStorage.setItem('orden', this.value);
@@ -340,19 +313,7 @@ function filter_button() {
         localStorage.setItem('filter', JSON.stringify(filter));
         localStorage.removeItem('filter_search');
 
-        // if (filter) {
-        //     ajaxForSearch("module/shop/controller/controller_shop.php?op=filter", filter);
-        // }
-        // else {
-        //     ajaxForSearch("module/shop/controller/controller_shop.php?op=all_cars");
-        // }
-
-        
         location.reload();
-
-
-        // highlight(filter);
-
 
     });
 }
@@ -373,8 +334,6 @@ function remove_filter() {
 }
 
 function mapBox_all(data) {
-    // console.log(data);
-    // console.log('hola mapbox all');
     mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
     const map = new mapboxgl.Map({
         container: 'map',
@@ -397,7 +356,6 @@ function mapBox_all(data) {
 }
 
 function mapBox(id) {
-    // console.log(id);
     mapboxgl.accessToken = 'pk.eyJ1IjoiMjBqdWFuMTUiLCJhIjoiY2t6eWhubW90MDBnYTNlbzdhdTRtb3BkbyJ9.uR4BNyaxVosPVFt8ePxW1g';
     const map = new mapboxgl.Map({
         container: 'map',
@@ -423,7 +381,6 @@ function cars_related(loadeds = 0, category_car, total_items) {
 
     ajaxPromise(friendlyURL('?module=shop&op=cars_related'), 'POST', 'JSON', { 'type': type, 'loaded': loaded, 'items': items })
         .then(function(data) {
-            // console.log(data);
             if (loaded == 0) {
                 $('<div></div>').attr({ 'id': 'title_content', class: 'title_content' }).appendTo('.results')
                     .html(
@@ -488,12 +445,10 @@ function cars_related(loadeds = 0, category_car, total_items) {
 }
 
 function more_cars_related(category_car) {
-    // var category_car = category_car;
     
     var items = 0;
     ajaxPromise(friendlyURL('?module=shop&op=count_related'), 'POST', 'JSON', { 'category_car': category_car })
         .then(function(data) {
-            // console.log(data);
             var total_items = data[0].n_prod;
             cars_related(0, category_car, total_items);
             $(document).on("click", '.load_more_button', function() {
@@ -509,9 +464,8 @@ function more_cars_related(category_car) {
 function pagination(){
     var filters_search = JSON.parse(localStorage.getItem('filter_search'));
     var filtros = JSON.parse(localStorage.getItem('filter'));
-    // console.log(filtros);
+    
     if (filters_search) {
-        // console.log('tenemos search');
         var url = "?module=shop&op=count_filters_search";
     } else if (filtros) {
         if (filtros[0][0] == 'default'){
@@ -524,8 +478,6 @@ function pagination(){
     }
     ajaxPromise(friendlyURL(url), 'POST', 'JSON', { 'filtros': filtros, 'filters_search': filters_search })
         .then(function(data) {
-
-            // console.log(data);
             var total_prod = data[0].contador;
 
             if (total_prod >= 3) {
@@ -547,11 +499,10 @@ function pagination(){
 
 function click_like(id_car, lugar) {
     var token = localStorage.getItem('heidi');
-    // console.log(token);
+
     if (token) {
         ajaxPromise(friendlyURL('?module=shop&op=control_likes'), 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
             .then(function(data) {
-                // console.log(data);
                 if(data == 'like'){
                     $("#" + id_car + ".fa").addClass('fa-heart');
                     $("#" + id_car + ".fa").removeClass('fa-heart-o');
@@ -562,11 +513,9 @@ function click_like(id_car, lugar) {
                 
             }).catch(function() {
                 window.location.href = "index.php?module=controller_exceptions&op=503&type=503&lugar=Function click_like SHOP";
-                // console.log('fallo');
             });
 
     } else {
-        // console.log('no has iniciado sesion');
         const redirect = [];
         redirect.push(id_car, lugar);
 
@@ -580,19 +529,16 @@ function click_like(id_car, lugar) {
 
 function load_likes_user() {
     var token = localStorage.getItem('heidi');
-    // console.log('cargando los likes del usuario');
+
     if (token) {
-        // console.log('patatatatatatata');
         ajaxPromise(friendlyURL('?module=shop&op=load_likes'), 'POST', 'JSON', { 'token': token })
             .then(function(data) {
-                // console.log(data);
                 for (row in data) {
                     $("#" + data[row].id_car + ".fa").addClass('fa-heart');
                     $("#" + data[row].id_car + ".fa").removeClass('fa-heart-o');
                 }
             }).catch(function() {
                 window.location.href = "index.php?module=controller_exceptions&op=503&type=503&lugar=Function load_like_user SHOP";
-                // console.log('fallo load');
             });
     }
 }
@@ -602,11 +548,8 @@ function redirect_login_like() {
     var token = localStorage.getItem('heidi');
     var redirect = localStorage.getItem('redirect_like').split(",");
 
-    // console.log('redirect like funcion');
-
     ajaxPromise(friendlyURL('?module=shop&op=control_likes'), 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
     .then(function(data) {
-        // console.log(data);
         if(data == 'like'){
             $("#" + id_car + ".fa").addClass('fa-heart');
             $("#" + id_car + ".fa").removeClass('fa-heart-o');
@@ -617,7 +560,6 @@ function redirect_login_like() {
         
     }).catch(function() {
         window.location.href = "index.php?module=controller_exceptions&op=503&type=503&lugar=Function click_like SHOP";
-        // console.log('fallo');
     });
 
     if (redirect[1] == "details") {
@@ -627,7 +569,6 @@ function redirect_login_like() {
     } else if (redirect[1] == "list_all") {
         localStorage.removeItem('redirect_like');
         localStorage.removeItem('id_car');
-        // console.log('patata');
         location.reload();
     }
   
@@ -637,13 +578,10 @@ function redirect_login_cart() {
     var id_car = localStorage.getItem('id_car');
     var token = localStorage.getItem('heidi');
     var redirect = localStorage.getItem('redirect_cart').split(",");
-    // console.log('redirect cart funcion');
-
 
         ajaxPromise(friendlyURL('?module=cart&op=insert_cart'), 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
         .then(function(data) { 
             console.log(data);
-            //toastr
         }).catch(function() {
             window.location.href = 'index.php?page=error503'
         }); 
@@ -658,13 +596,11 @@ function redirect_login_cart() {
 }
 
 function add_cart(id_car, lugar){
-    // console.log('patata');
     var token = localStorage.getItem('heidi');
     if(token){
         ajaxPromise(friendlyURL('?module=cart&op=insert_cart'), 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
         .then(function(data) { 
             console.log(data);
-            //toastr
         }).catch(function() {
             window.location.href = 'index.php?page=error503'
         });  
@@ -682,8 +618,6 @@ function add_cart(id_car, lugar){
 }
 
 $(document).ready(function() {
-    // friendlyURL("?module=home&op=type")
-    // console.log('hola js');
     loadCars();
     clicks();
     remove_filter();

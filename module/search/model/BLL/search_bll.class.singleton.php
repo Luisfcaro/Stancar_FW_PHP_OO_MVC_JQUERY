@@ -17,22 +17,18 @@
 		}
 
 		public function get_car_marca_BLL() {
-			// return 'get marca bll';
 			return $this -> dao -> select_car_marca($this->db);
 		}
 
 		public function get_car_categoria_BLL() {
-			// return 'get categoria bll';
 			return $this -> dao -> select_car_categoria($this->db);
 		}
 
         public function get_car_categoria_brand_BLL($args) {
-			// return 'get categoria marca bll';
 			return $this -> dao -> select_car_categoria_brand($this->db, $args);
 		}
 
 		public function get_only_categoria_auto_BLL($args) {
-            // return ($args[1]);
 			return $this -> dao -> select_only_categoria_auto($this->db, $args[0], $args[1]);
 		}
 

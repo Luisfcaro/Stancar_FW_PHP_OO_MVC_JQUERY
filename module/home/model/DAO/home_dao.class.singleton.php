@@ -14,7 +14,6 @@
         }
 
         public function select_data_carrusel($db) {
-
             $sql= "SELECT * FROM `marca` ORDER BY descripcion ASC LIMIT 30;";
 
             $stmt = $db -> ejecutar($sql);
@@ -24,8 +23,6 @@
         public function select_data_category($db) {
             $sql= "SELECT * FROM categorias";
 
-            // $sql = "SELECT * FROM categorias";
-
             $stmt = $db -> ejecutar($sql);
             return $db -> listar($stmt);
         }
@@ -33,16 +30,12 @@
         public function select_data_type($db) {
 			$sql= "SELECT * FROM motor ORDER BY cod_motor DESC";
 
-            // $sql = "SELECT * FROM type LIMIT 4";
-
             $stmt = $db -> ejecutar($sql);
             return $db -> listar($stmt);
         }
 
 		public function select_data_viewed($db) {
 			$sql= "SELECT * FROM car ORDER BY Visitas DESC LIMIT 4";
-
-            // $sql = "SELECT * FROM type LIMIT 4";
 
             $stmt = $db -> ejecutar($sql);
             return $db -> listar($stmt);

@@ -26,12 +26,10 @@
 		}
 
 		public function get_type_BLL() {
-			// return 'hola type bll';
 			return $this -> dao -> select_data_type($this -> db);
 		}
 
 		public function get_viewed_BLL() {
-			// return 'hola viewed bll';
 			return $this -> dao -> select_data_viewed($this -> db);
 		}
 	}

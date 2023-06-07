@@ -22,8 +22,6 @@ function load_cart(){
             window.location.href = 'index.php?page=error503'
         }); 
     }else{
-
-        // setTimeout(' window.location.href = "index.php?page=controller_login&op=login_view"; ',1000);
         console.log('fallo al cargar el carrito');
     }
 }
@@ -35,14 +33,11 @@ function remove_cart(){
         if(token){
             ajaxPromise(friendlyURL('?module=cart&op=delete_cart'), 'POST', 'JSON', { 'token': token, 'num_bas': id_car })
             .then(function(data) { 
-                console.log(data);
-                // $('div.basket-product#'+ id_car).empty();
                 location.reload();
             }).catch(function() {
                 window.location.href = 'index.php?page=error503'
             });   
         }else{
-            // setTimeout(' window.location.href = "index.php?page=controller_login&op=login_view"; ',1000);
             console.log('fallo al eliminar el articulo del carrito');
         }
     });
@@ -50,22 +45,18 @@ function remove_cart(){
 
 function change_qty(){
     $(document).on('input','.quantity-field',function () {
-        // console.log('cambiaste cantidad');
         var token = localStorage.getItem('heidi');
         var id_car =  this.getAttribute('id');
         var qty = $("#" + id_car + ".quantity-field").val();
-        // console.log(id_car);
-        // console.log(qty);
+
         if(token){
             ajaxPromise(friendlyURL('?module=cart&op=update_qty'), 'POST', 'JSON', { 'token': token, 'num_bas': id_car, 'cantidad': qty })
             .then(function(data) { 
-                // console.log(data);
                 location.reload();
             }).catch(function() {
                 window.location.href = 'index.php?page=error503';
             }); 
         }else{            
-            // setTimeout(' window.location.href = "index.php?page=controller_login&op=login_view"; ',1000);
             console.log('fallo al actualizar la cantidad');
         }
     });
@@ -85,16 +76,13 @@ function checkout(){
             });   
 
             
-        }else{
-            // setTimeout(' window.location.href = "index.php?page=controller_login&op=login_view"; ',1000);
-            
+        }else{ 
             console.log('Fallo en el checkout');
         }
     });
 }
 
 $(document).ready(function(){
-    // console.log('hola controller cart');
     load_cart();
     remove_cart();
     change_qty();

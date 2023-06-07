@@ -5,12 +5,9 @@
 		
 		function view(){
 			common::load_view('top_page_contact.html', VIEW_PATH_CONTACT . 'contact_list.html');
-			// echo('hola view');
 		}
 		
 		function send_contact_us(){
-			// echo json_encode($_POST);
-			// exit;
 			$message = ['type' => 'contact',
 					 	'inputName' => $_POST['name'], 
 						'fromEmail' => $_POST['email'], 

@@ -1,8 +1,6 @@
 function load_marcas() {
-    // console.log('hola buscar marcas');
         ajaxPromise(friendlyURL('?module=search&op=car_marca'), 'POST', 'JSON')
         .then(function (data) {
-            // console.log(data);
             $('<option>Marca</option>').attr('selected', true).attr('disabled', true).appendTo('.search_marca')
             for (row in data) {
                 $('<option value="' + data[row].cod_marca + '">' + data[row].nombre_marca + '</option>').appendTo('.search_marca')
@@ -13,17 +11,12 @@ function load_marcas() {
 }
 
 function load_categorias(marca) {
-
-    // console.log('Hola categorias js');
     $('.search_categoria').empty();
-    // // console.log(marca);
 
     if (marca === undefined) {
-        // console.log('hola null');
 
         ajaxPromise(friendlyURL('?module=search&op=car_categoria'), 'POST', 'JSON' , { 'marca' : marca })
         .then(function (data) {
-            // console.log(data);
             $('<option>Categoria</option>').attr('selected', true).attr('disabled', true).appendTo('.search_categoria')
             for (row in data) {
                 $('<option value="' + data[row].cod_categoria + '">' + data[row].nombre_categoria + '</option>').appendTo('.search_categoria')
@@ -32,11 +25,9 @@ function load_categorias(marca) {
             window.location.href = "index.php?page=503";
         });
     } else {
-        // console.log('hola no null');
 
         ajaxPromise(friendlyURL('?module=search&op=car_categoria'), 'POST', 'JSON', marca)
         .then(function (data) {
-            // console.log(data);
             for (row in data) {
                 $('<option value="' + data[row].cod_categoria + '">' + data[row].nombre_categoria + '</option>').appendTo('.search_categoria')
             }
@@ -47,12 +38,10 @@ function load_categorias(marca) {
 }
 
 function launch_search() {
-    // console.log('hola launch');
     load_marcas();
     load_categorias();
     $(document).on('change', '.search_marca', function () {
         let marca = $(this).val();
-        // console.log(marca);
         if (marca === 0) {
             load_categorias();
         } else {
@@ -100,7 +89,6 @@ function autocomplete() {
 
 function button_search() {
     $('#search-btn').on('click', function () {
-        // console.log('hola boton search');
         var search = [];
         
         if ($('.search_marca').val() != undefined) {
@@ -125,12 +113,10 @@ function button_search() {
             localStorage.setItem('filter_search', JSON.stringify(search));
         }
         window.location.href = '?module=shop';
-        // console.log(search);
     });
 }
 
 $(document).ready(function () {
-    // console.log('hola search');
     launch_search();
     autocomplete();
     button_search();

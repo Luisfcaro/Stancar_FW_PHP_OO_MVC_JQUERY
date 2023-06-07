@@ -24,18 +24,15 @@
         
 			$sql = "SELECT * FROM users WHERE username = '$username' OR email = '$username'";
 
-            // return $sql;
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
   
         }
 
         public function select_comprobar_reg($db, $username, $email){
-            // return 'holaaaa';
 
 			$sql = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
 
-            // return $sql;
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
   
@@ -61,8 +58,6 @@
 
 			$sql = "SELECT token_email FROM users WHERE token_email = '$token_email'";
 
-            // return $sql;
-
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         } 
@@ -78,7 +73,6 @@
         public function select_recover_password($db, $email){
 			$sql = "SELECT `email` FROM `users` WHERE email = '$email';";
 
-            // return $sql;
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);
         }
@@ -95,7 +89,6 @@
         public function update_new_passwoord($db, $token_email, $password){
             $sql = "UPDATE `users` SET `password`= '$password', `token_email`= '' WHERE `token_email` = '$token_email'";
 
-            // return $sql;
             $stmt = $db->ejecutar($sql);
             return "ok";
         }
@@ -104,7 +97,6 @@
 
 
         public function select_data_user($db, $username){
-            // return $username;
 
 			$sql = "SELECT * FROM users WHERE username = '$username'";
             

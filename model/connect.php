@@ -6,7 +6,6 @@
 			$Username = 'root';
 			$Password = '';
 			$puerto = 3306;
-			//$tabla = "cars";
     		
     		$conexion = mysqli_connect($Host, $Username, $Password, $DBname, $puerto)or die();
 			return $conexion;

@@ -1,5 +1,4 @@
 <?php
-// require_once(BLL_HOME . 'home_bll.class.singleton.php');
     class home_model {
 
         private $bll;
@@ -25,13 +24,11 @@
         }
 
         public function get_type() {
-            // return 'hola car type';
             return $this -> bll -> get_type_BLL();
         }
 
 
         public function get_most_viewed() {
-            // return 'hola car viewed';
             return $this -> bll -> get_viewed_BLL();
         }
     }

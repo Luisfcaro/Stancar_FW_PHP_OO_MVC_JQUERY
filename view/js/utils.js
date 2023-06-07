@@ -41,23 +41,13 @@ function load_menu() {
         '<li class="nav-item register_section"><a href="'+friendlyURL("?module=login&op=view_register") + '" class="nav-link">Register</a></li>' +
         '<li class="nav-item carrito"><a href="'+friendlyURL("?module=cart") + '" class="nav-link"> <i class="gg-shopping-cart nav-link"></i> </a></li>'
      );
-    // console.log('soy una patata util');
+
     var token = localStorage.getItem('heidi');
-    // console.log(token);
+
     if (token) {
         ajaxPromise(friendlyURL('?module=login&op=data_user'), 'POST', 'JSON', { 'token': token })
             .then(function(data) {
                 console.log(data);
-                // if (data.type_user == "client") {
-                //     console.log("Client loged");
-                //     $('.opc_CRUD').empty();
-                //     $('.opc_exceptions').empty();
-                // } else {
-                //     console.log("Admin loged");
-                //     $('.opc_CRUD').show();
-                //     $('.opc_exceptions').show();
-                // }
-
                 $('.login_section').hide();
                 $('.register_section').hide();
                 $('.carrito').show();
@@ -106,7 +96,6 @@ function logout() {
 
 
 $(document).ready(function() {
-    // console.log('utils activos');
     load_menu();
     click_logout();
 });

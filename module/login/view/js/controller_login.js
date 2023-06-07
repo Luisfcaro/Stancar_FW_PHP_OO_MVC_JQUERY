@@ -1,11 +1,8 @@
 function login() {
-    // console.log('loginnnnnnn');
     if (validate_login() != 0) {
         var data = $('#login__form').serialize();
-        // console.log(data);
         ajaxPromise(friendlyURL('?module=login&op=login'), 'POST', 'JSON', data)
             .then(function(result) {
-                // console.log(result);
                 if (result == "error_user") {
                     document.getElementById('error_username_log').innerHTML = "El usario no existe,asegurase de que lo has escrito correctamente"
                 } else if (result == "error_passwd") {
@@ -25,13 +22,10 @@ function login() {
     }
 }
 
-
 function recover(){
-    // console.log('funcion recoverrrrr');
 
     if (validate_recover() != 0) {
         var data = $('#recover__form').serialize();
-        // console.log(data);
         ajaxPromise(friendlyURL('?module=login&op=send_recover_email'), 'POST', 'JSON', data)
             .then(function(result) {
                 console.log(result);
@@ -52,10 +46,7 @@ function recover(){
 
 }
 
-
 function restore(){
-    
-    // console.log('restoreeeee');
 
     if (validate_restore() != 0) {
         var data = $('#passwd1_recover').val();
@@ -81,12 +72,8 @@ function restore(){
 
 }
 
-
-//////Botones///////
-
 function key_login() {
     $("#login").keypress(function(e) {
-        // console.log('boton login');
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13) {
             e.preventDefault();
@@ -97,7 +84,6 @@ function key_login() {
 
 function button_login() {
     $('#login').on('click', function(e) {
-        // console.log('boton login');
         e.preventDefault();
         login();
 
@@ -106,7 +92,6 @@ function button_login() {
 
 function button_recover_form() {
     $('#recover_form_btn').on('click', function(e) {
-        // console.log('boton recover');
         $('.login').hide();
         $('.recover').show();
         e.preventDefault();
@@ -116,7 +101,6 @@ function button_recover_form() {
 
 function button_recover() {
     $('#recover_btn').on('click', function(e) {
-        // console.log('boton recover');
         e.preventDefault();
         recover();
 
@@ -125,16 +109,10 @@ function button_recover() {
 
 function button_restore() {
     $('#restore_btn').on('click', function(e) {
-        // console.log('boton restore');
         e.preventDefault();
         restore();
     });
 }
-
-////////////////////
-
-
-/////Validates////////
 
 function validate_login() {
     var error = false;
@@ -215,7 +193,6 @@ function validate_restore() {
     }
 
     if (document.getElementById('passwd2_recover').value != document.getElementById('passwd1_recover').value) {
-        // console.log('las contraseñas no son iguales');
         document.getElementById('error_passwd_equal_recover').innerHTML = "Las contraseñas deben de ser iguales";
         error = true;
     } else {
@@ -227,19 +204,11 @@ function validate_restore() {
     }
 }
 
-
-
-
-//////////////Recover Password//////
-
-
 function load_form_new_password(){
     var token_email = localStorage.getItem('token_email');
-    // console.log(token_email);
 
     ajaxPromise(friendlyURL('?module=login&op=verify_token'), 'POST', 'JSON', {'token_email' : token_email})
     .then(function(result) {
-        // console.log(result);
         if (result == "verify") {
             console.log('verified');
         } else {
@@ -252,22 +221,14 @@ function load_form_new_password(){
     });
 }
 
-////////////////////////////////////
-
-
-
 function load_content() {
     let path = window.location.pathname.split('/');
-    // console.log(path);
     if(path[4] === 'recover'){
-        // console.log('dile hola al recover crack con redireccion');
         localStorage.setItem("token_email", path[5]);
         window.location.href = friendlyURL("?module=login&op=recover_view");
     }else if (path[4] === 'verify') {
-        // console.log('verificandome');
         ajaxPromise(friendlyURL("?module=login&op=verify_email"), 'POST', 'JSON', {'token_email': path[5]})
         .then(function(data) {
-            // console.log(data);
             toastr.options.timeOut = 3000;
             toastr.success('Email verified');
             setTimeout('window.location.href = friendlyURL("?module=login&op=view_login")', 1000);
@@ -281,14 +242,10 @@ function load_content() {
     }else if (path[3] === 'recover_view') {
         console.log('estas en el formulario de recover');
         load_form_new_password();
-
-
-        ///////Te quedastes AQUI//////////
     }
 }
 
 $(document).ready(function() {
-    // console.log('patata login');
     $('#header').hide();
     $('#footer').hide();
     $('#menu').hide();
