@@ -70,6 +70,7 @@ function loadCars(total_prod = 0, items_page = 3) {
     var filtro_search = JSON.parse(localStorage.getItem('filter_search'));
     var visita = JSON.parse(localStorage.getItem('Id_visitas'));
     var redirect_like = localStorage.getItem('redirect_like');
+    var redirect_cart = localStorage.getItem('redirect_cart');
     // localStorage.removeItem('Id_Visitas');
    
     // console.log(filtro);
@@ -91,6 +92,9 @@ function loadCars(total_prod = 0, items_page = 3) {
     }else if (redirect_like) {
         console.log('redirect');
         redirect_login_like();
+    }else if (redirect_cart) {
+        // console.log('redirect');
+        redirect_login_cart();
     }else{
         
         // console.log('all');
@@ -578,6 +582,7 @@ function load_likes_user() {
     var token = localStorage.getItem('heidi');
     // console.log('cargando los likes del usuario');
     if (token) {
+        // console.log('patatatatatatata');
         ajaxPromise(friendlyURL('?module=shop&op=load_likes'), 'POST', 'JSON', { 'token': token })
             .then(function(data) {
                 // console.log(data);
@@ -628,6 +633,30 @@ function redirect_login_like() {
   
 }
 
+function redirect_login_cart() {
+    var id_car = localStorage.getItem('id_car');
+    var token = localStorage.getItem('heidi');
+    var redirect = localStorage.getItem('redirect_cart').split(",");
+    // console.log('redirect cart funcion');
+
+
+        ajaxPromise(friendlyURL('?module=cart&op=insert_cart'), 'POST', 'JSON', { 'num_bas': id_car, 'token': token })
+        .then(function(data) { 
+            console.log(data);
+            //toastr
+        }).catch(function() {
+            window.location.href = 'index.php?page=error503'
+        }); 
+
+    if (redirect[1] == "cart") {
+        window.location.href = friendlyURL('?module=cart');
+        localStorage.removeItem('redirect_cart');
+        localStorage.removeItem('id_car');
+    } 
+
+  
+}
+
 function add_cart(id_car, lugar){
     // console.log('patata');
     var token = localStorage.getItem('heidi');
@@ -644,7 +673,7 @@ function add_cart(id_car, lugar){
         const redirect = [];
         redirect.push(id_car, lugar);
 
-        localStorage.setItem('redirect_like', redirect);
+        localStorage.setItem('redirect_cart', redirect);
         localStorage.setItem('id_car', id_car);
 
         toastr.warning("Debes de iniciar session");

@@ -61,6 +61,7 @@
 		///////Likes//////
 
 		public function get_load_likes_BLL($args) {
+			// return 'hola likes bll';
 
 			$token = explode('"', $args);
 			$decode = jwt_process::decode_token($token[0]);

@@ -266,6 +266,7 @@
         public function select_load_likes($db, $username){
 
             $sql = "SELECT l.id_car FROM likes l WHERE l.id_user = (SELECT u.id_user FROM users u WHERE u.username = '$username')";
+            // return $sql;
 
             $stmt = $db->ejecutar($sql);
             return $db->listar($stmt);

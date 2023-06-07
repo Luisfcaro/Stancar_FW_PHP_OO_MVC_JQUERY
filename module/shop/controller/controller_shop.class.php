@@ -50,6 +50,7 @@
         ////////Likes///////
 
         function load_likes() {
+            // echo json_encode('hola load likesss');
             // echo json_encode($_POST['token']);
             echo json_encode(common::load_model('shop_model', 'get_load_likes', $_POST['token']));
         }

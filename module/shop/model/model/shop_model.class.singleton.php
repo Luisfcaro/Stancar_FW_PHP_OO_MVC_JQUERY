@@ -60,12 +60,12 @@
         ////////Likes////////
 
         public function get_load_likes($args) {
+            // return $args;
             return $this -> bll -> get_load_likes_BLL($args);
         }
 
         public function get_control_likes($args) {
             // return 'get control like model';
-
             return $this -> bll -> get_control_likes_BLL($args);
         }
 
