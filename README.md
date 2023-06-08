@@ -29,7 +29,6 @@ Esta sera nuestra primera vista al entrar en la pagina, en esta misma disponemos
 
   * Las marcas que se nos presentaran a traves de un <strong>carrusel</strong>.
   * Categorías, Tipos de motor y los coches mas vistos, que se nos mostraran en una serie de cartas.
-  * Y finalmente una serie de libros recomendados relacionados con los productos de la pagina.
 
 3. __Shop: 🏪__ 
 Siendo el modulo más importante de la aplicación, disponemos de una vista de los productos, tanto a nivel visual con una vista previa del vehículo y algunas de sus características, como su posición a traves de la geolocalización. Además de ofrecernos los siguientes añadidos:
