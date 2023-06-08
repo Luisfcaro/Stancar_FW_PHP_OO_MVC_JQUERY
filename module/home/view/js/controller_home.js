@@ -233,11 +233,11 @@ function get_Books_car() {
 
 $(document).ready(function() {
   // console.log('hola');
-  var books = [];
+//   var books = [];
   loadMostViewed();
   carousel_Brands();
   loadCategories();
   loadCatTypes();
-  get_Books_car();
+//   get_Books_car();
   clicks();
 });
