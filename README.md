@@ -22,7 +22,7 @@ La web está compuesta con las siguientes funcionalidades:
 
 
 1. __En toda la aplicación:__ 
-  * Buscador de productor
+  * Buscador de productos
 
 2. __Home: 🏠__ 
 Esta sera nuestra primera vista al entrar en la pagina, en esta misma disponemos de diferente apartados o categorias por los que podremos filtrar a traves de un simple clic.
