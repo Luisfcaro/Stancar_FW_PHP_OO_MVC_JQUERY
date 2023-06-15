@@ -26,14 +26,6 @@
             return $this -> bll -> get_car_categoria_brand_BLL($args);
         }
 
-        public function get_only_categoria_auto($args) {
-            return $this -> bll -> get_only_categoria_auto_BLL($args);
-        }
-
-        public function get_marca_categoria_auto($args) {
-            return $this -> bll -> get_marca_categoria_auto_BLL($args);
-        }
-
         public function get_auto_car_type_brand($args) {
             return $this -> bll -> get_auto_car_type_brand_BLL($args);
         }
@@ -42,9 +34,9 @@
             return $this -> bll -> get_auto_BLL($args);
         }
 
-
-        public function get_city($args) {
-            return $this -> bll -> get_city_BLL($args);
+        public function get_autocomplete($args) {
+            // return $args;
+            return $this -> bll -> get_autocomplete($args);
         }
 
     }

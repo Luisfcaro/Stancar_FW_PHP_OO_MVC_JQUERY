@@ -225,14 +225,13 @@ function get_Books_car() {
       }).catch(function() {
           window.location.href = "index.php?module=ctrl_exceptions&op=503&type=503&lugar=News cars HOME";
       });
-  load_more_Books_car();
+//   load_more_Books_car();
 }
 
 
 
 
 $(document).ready(function() {
-  // console.log('hola');
 //   var books = [];
   loadMostViewed();
   carousel_Brands();

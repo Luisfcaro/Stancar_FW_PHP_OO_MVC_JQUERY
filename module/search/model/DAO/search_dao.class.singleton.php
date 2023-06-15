@@ -38,7 +38,7 @@
             return $db->listar($stmt);
         }
 
-        function select_only_categoria_auto($db, $complete, $categoria){
+        function select_only_categoria_auto($db, $categoria, $complete){
 
             $sql="SELECT DISTINCT city FROM car WHERE car.cod_categoria = '$categoria' AND car.city LIKE '$complete%'";
 
@@ -46,7 +46,7 @@
             return $db->listar($stmt);
         }
 
-        function select_marca_categoria_auto($db, $marca, $complete, $categoria){
+        function select_marca_categoria_auto($db, $marca, $categoria, $complete){
 
             $sql="SELECT DISTINCT city FROM car WHERE car.cod_marca = '$marca' AND car.cod_categoria = '$categoria' AND car.city LIKE '$complete%'";
 
